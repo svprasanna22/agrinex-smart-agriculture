@@ -1,0 +1,84 @@
+# =========================================================================
+# AgriNex – Git Ignore Configuration
+# =========================================================================
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production Builds
+dist/
+dist-ssr/
+build/
+*.local
+
+# Environment Variables
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Logs & Diagnostics
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Machine Learning Checkpoints & Heavy Weights
+# (Download via 'python backend/download_model.py' or check README.md)
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.onnx
+*.bin
+
+# Large Reference Documents (PDFs)
+docs_reference/*.pdf
+
+# Temporary Uploads & Datasets
+plant_disease_dataset/*
+!plant_disease_dataset/.gitkeep
+temp/
+uploads/
+*.tmp
+
+# Editor & IDE Configs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.cursor/
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
