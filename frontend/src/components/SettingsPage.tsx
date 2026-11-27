@@ -18,10 +18,9 @@ import { getCropHistory, clearCropHistory } from '../services/storage';
 
 interface SettingsPageProps {
   user: UserSession;
-  onLogout: () => void;
 }
 
-export const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
+export const SettingsPage: React.FC<SettingsPageProps> = ({ user }) => {
   const [modelStatus, setModelStatus] = useState<ModelStatusResponse | null>(null);
   const [loadingModels, setLoadingModels] = useState(false);
   const [historyCount, setHistoryCount] = useState(0);
@@ -73,22 +72,14 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) =>
 
       {/* Section 1: Farmer Profile */}
       <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-          <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
-              <User className="w-4 h-4" />
-            </div>
-            <div>
-              <h2 className="text-sm font-bold text-white">Farmer Profile (Demo)</h2>
-              <p className="text-[11px] text-slate-400">Current demonstration session identity</p>
-            </div>
+        <div className="flex items-center space-x-2.5 border-b border-slate-800 pb-3">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+            <User className="w-4 h-4" />
           </div>
-          <button
-            onClick={onLogout}
-            className="px-3.5 py-1.5 bg-red-950/50 hover:bg-red-900/50 text-red-300 border border-red-500/30 text-xs font-semibold rounded-xl transition"
-          >
-            Sign Out
-          </button>
+          <div>
+            <h2 className="text-sm font-bold text-white">Farmer Profile</h2>
+            <p className="text-[11px] text-slate-400">Active user session</p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">

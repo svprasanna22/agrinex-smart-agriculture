@@ -7,7 +7,6 @@ import {
   TrendingUp, 
   BrainCircuit, 
   Settings, 
-  LogOut, 
   Sprout, 
   Menu, 
   X, 
@@ -22,7 +21,6 @@ interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   user: UserSession;
-  onLogout: () => void;
   backendOnline: boolean;
   isOpenMobile: boolean;
   setIsOpenMobile: (open: boolean) => void;
@@ -32,7 +30,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   activeTab,
   setActiveTab,
   user,
-  onLogout,
   backendOnline,
   isOpenMobile,
   setIsOpenMobile
@@ -184,24 +181,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* Farmer Profile Strip */}
-          <div className="flex items-center justify-between bg-slate-900/90 border border-slate-800 rounded-xl p-2.5">
-            <div className="flex items-center space-x-2.5 overflow-hidden">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-xs shrink-0">
-                {user.name.charAt(0)}
-              </div>
-              <div className="overflow-hidden">
-                <p className="text-xs font-bold text-white truncate">{user.name}</p>
-                <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
-              </div>
+          <div className="flex items-center space-x-2.5 bg-slate-900/90 border border-slate-800 rounded-xl p-2.5">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-xs shrink-0">
+              {user.name.charAt(0)}
             </div>
-
-            <button
-              onClick={onLogout}
-              title="Sign out of AgriNex"
-              className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-950/30 transition"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
+            <div className="overflow-hidden">
+              <p className="text-xs font-bold text-white truncate">{user.name}</p>
+              <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
+            </div>
           </div>
         </div>
       </aside>

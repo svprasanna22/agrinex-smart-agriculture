@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
-import { LoginPage } from './components/LoginPage';
 import { FarmerDashboard } from './components/FarmerDashboard';
 import { FarmerHealthChecker } from './components/FarmerHealthChecker';
 import { CropHistoryPage } from './components/CropHistoryPage';
@@ -23,21 +22,18 @@ import { getStoredAuth, clearStoredAuth } from './services/storage';
 import { UserSession } from './types';
 import { Menu, Sprout } from 'lucide-react';
 
+const DEFAULT_USER: UserSession = {
+  name: 'Farmer Ramesh',
+  email: 'farmer@agrinex.com',
+  farmLocation: 'Coimbatore District',
+  memberSince: 'March 2024'
+};
+
 export function App() {
-  const [user, setUser] = useState<UserSession | null>(null);
+  const [user, setUser] = useState<UserSession>(() => getStoredAuth() || DEFAULT_USER);
   const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [backendOnline, setBackendOnline] = useState<boolean>(false);
   const [isOpenMobile, setIsOpenMobile] = useState<boolean>(false);
-  const [isInitializing, setIsInitializing] = useState<boolean>(true);
-
-  // Initialize session from localStorage
-  useEffect(() => {
-    const savedUser = getStoredAuth();
-    if (savedUser) {
-      setUser(savedUser);
-    }
-    setIsInitializing(false);
-  }, []);
 
   // Poll backend health status
   useEffect(() => {
@@ -50,33 +46,6 @@ export function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLogout = () => {
-    clearStoredAuth();
-    setUser(null);
-    setActiveTab('dashboard');
-  };
-
-  const handleLoginSuccess = (loggedInUser: UserSession) => {
-    setUser(loggedInUser);
-    setActiveTab('dashboard');
-  };
-
-  if (isInitializing) {
-    return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-slate-400">
-        <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
-          <span className="text-sm font-semibold">Loading AgriNex Portal...</span>
-        </div>
-      </div>
-    );
-  }
-
-  // If unauthenticated, show demo login screen
-  if (!user) {
-    return <LoginPage onLoginSuccess={handleLoginSuccess} />;
-  }
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row font-sans">
       {/* Sidebar Navigation */}
@@ -84,7 +53,6 @@ export function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         user={user}
-        onLogout={handleLogout}
         backendOnline={backendOnline}
         isOpenMobile={isOpenMobile}
         setIsOpenMobile={setIsOpenMobile}
@@ -129,7 +97,7 @@ export function App() {
           {activeTab === 'yield-pred' && <CropYieldPredictionPage />}
           {activeTab === 'xai' && <XAITab />}
           {activeTab === 'settings' && (
-            <SettingsPage user={user} onLogout={handleLogout} />
+            <SettingsPage user={user} />
           )}
 
           {/* Research & Advanced Edge Tabs */}
